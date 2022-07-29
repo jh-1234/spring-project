@@ -5,7 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import project.demo.model.Channel;
-import project.demo.model.Member;
+import project.demo.model.User;
 import project.demo.service.MainService;
 
 @Controller
@@ -29,12 +29,12 @@ public class MainController {
 
     @GetMapping("/join")
     public String join(Model model) {
-        model.addAttribute("member", new Member());
+        model.addAttribute("user", new User());
         return "join";
     }
 
     @PostMapping("/join")
-    public String join(@ModelAttribute Member member) {
+    public String join(@ModelAttribute User member) {
         service.join(member);
         return "redirect:/";
     }

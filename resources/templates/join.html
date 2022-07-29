@@ -19,7 +19,7 @@
     <section>
         <div class="container">
             <div class="inner_container">
-                <form action="#" th:action="@{/join}" th:object="${member}" method="post">
+                <form action="#" th:action="@{/join}" th:object="${user}" method="post">
                     <div>
                         <label for="username">아이디 </label>
                         <input id="username" th:field="*{username}" type="text" placeholder="아이디를 입력하세요." autocomplete="off" autofocus required>

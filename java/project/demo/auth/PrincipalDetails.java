@@ -3,7 +3,7 @@ package project.demo.auth;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import project.demo.model.Member;
+import project.demo.model.User;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -11,41 +11,28 @@ import java.util.Collection;
 @RequiredArgsConstructor
 public class PrincipalDetails implements UserDetails {
 
-    private final Member member;
+    private final User user;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Collection<GrantedAuthority> collect = new ArrayList<>();
-        collect.add(new GrantedAuthority() {
-            @Override
-            public String getAuthority() {
-                return member.getRole();
-            }
-        });
+        collect.add((GrantedAuthority) () -> user.getRole());
 
         return collect;
     }
 
     @Override
     public String getPassword() {
-        return member.getPassword();
+        return user.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return member.getUsername();
-    }
-
-    public String getRole() {
-        return member.getRole();
+        return user.getUsername();
     }
 
     public String getNickname() {
-        return member.getNickname();
-    }
-
-    public String getDate() {
-        return String.valueOf(member.getCreateDate());
+        return user.getNickname();
     }
 
     @Override

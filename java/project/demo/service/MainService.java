@@ -5,17 +5,17 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import project.demo.auth.PrincipalDetails;
-import project.demo.model.Member;
-import project.demo.repository.MemberRepository;
+import project.demo.model.User;
+import project.demo.repository.UserRepository;
 
 @Service
 @RequiredArgsConstructor
 public class MainService {
 
-    private final MemberRepository repository;
+    private final UserRepository repository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public void join(Member member) {
+    public void join(User member) {
         String rawPassword = member.getPassword();
         String encodePassword = bCryptPasswordEncoder.encode(rawPassword);
 
