@@ -1,6 +1,7 @@
 package project.demo.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -54,5 +55,12 @@ public class MainController {
     @ResponseBody
     public String admin() {
         return "관리자 페이지입니다.";
+    }
+
+    @RequestMapping("/securedTest")
+    @ResponseBody
+    @Secured("ROLE_ADMIN")
+    public String securedTest() {
+        return "securedEnabled 테스트 페이지입니다.";
     }
 }
