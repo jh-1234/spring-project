@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="/css/login.css" rel="stylesheet">
+
+    <title>Document</title>
+</head>
+<body>
+    <a class="back" href="#" th:href="@{/}">◀<span style="font-size: 30px;">뒤로가기</span></a>
+
+    <div class="body">
+        <section class="login">
+            <h1>환영합니다.</h1>
+
+            <form action="#" th:action="@{/login}" method="post">
+                <div class="field">
+                    <input id="username" name="username" type="text" autocomplete="off" required autofocus>
+                    <span></span>
+                    <label for="username">아이디</label>
+                </div>
+
+                <div class="field">
+                    <input id="password" name="password" type="password" autocomplete="off" required>
+                    <span></span>
+                    <label for="password">비밀번호</label>
+                </div>
+
+                <div class="login_btn">
+                    <input type="submit" value="로그인">
+                </div>
+            </form>
+
+            <div class="guide">
+                <a href="#" th:href="@{/join}">회원가입</a>
+                <br>
+                <a href="#">계정을 잊으셨나요?</a>
+            </div>
+        </section>
+    </div>
+</body>
+</html>

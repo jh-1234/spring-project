@@ -1,0 +1,35 @@
+section {
+    text-align: center;
+    margin-top: 15px;
+}
+
+.inner_container > form > div {
+    margin-bottom: 10px;
+}
+
+.inner_container > form > div > label {
+    display: inline-block;
+    font-size: 22px;
+    width: 10%;
+    text-align: left;
+}
+
+.inner_container > form > div > input {
+    width: 50%;
+    height: 35px;
+    border-radius: 5px;
+    border-color: #ddd;
+    border-style: solid;
+    box-sizing: border-box;
+    padding: 6px;
+}
+
+.inner_container > form > button {
+    width: 100px;
+    height: 40px;
+    font-size: 20px;
+    box-sizing: border-box;
+    background-color: #000;
+    color: #fff;
+    border-radius: 8px;
+}

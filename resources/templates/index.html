@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link href="/css/index.css" rel="stylesheet">
+    <link href="/css/nav.css" rel="stylesheet">
+</head>
+<body>
+    <nav th:replace="header :: nav"></nav>
+
+    <section style="text-align: center;">
+        <div class="container">
+            <div class="inner_container">
+                <h1>환영합니다.</h1>
+                <h3>본 사이트는 원하는 채널을 만들어 소통할 수 있는 공간입니다.</h3>
+            </div>
+            <hr style="width: 80%; margin-top: 80px; display: inline-block; text-align: center;">
+            <br><br>
+            <button sec:authorize="isAnonymous()" type="button" onclick="login();">채널 생성</button>
+            <button sec:authorize="isAuthenticated()" type="button" class="create-open-btn">채널 생성</button>
+            <br><br>
+            <button type="button" class="enter-open-btn">채널 참가</button>
+        </div>
+    </section>
+
+
+    <div class="create_modal">
+        <div class="create_modal_body">
+            <div class="create_modal_head">
+                <span style="font-size: 24px; display: inline-block; width: 90%; margin-left: 30px;">채널 생성&nbsp;</span>
+                <button type="button" class="create-close-btn">&times;</button>
+            </div>
+            <hr>
+            <form action="#" th:action="@{/createChannel}" th:object="${channel}" method="post">
+                <label for="title">제목</label>
+                <input id="title" th:field="*{title}" type="text" placeholder="채널 제목을 입력하세요." autocomplete="off" required><br><br>
+                <span style="font-weight: bold;">공개여부</span><br>
+                <input id="public" name="whether" type="radio" value="public" checked>
+                <label for="public">공개</label>
+                <input id="private" name="whether" type="radio" value="private">
+                <label for="private">비공개</label>
+                <br><br>
+                <div class="password">
+                    <label for="password">암호</label>
+                    <input id="password" th:field="*{password}" type="password" placeholder="암호를 설정하세요." autocomplete="off">
+                </div>
+                <br>
+                <input type="submit" value="생성">
+            </form>
+        </div>
+    </div>
+
+    <div class="enter_modal">
+        <div class="enter_modal_body">
+            <div class="enter_modal_head">
+                <span style="font-size: 24px; display: inline-block; width: 90%; margin-left: 30px;">채널 참가&nbsp;</span>
+                <button type="button" class="enter-close-btn">&times;</button>
+            </div>
+            <hr>
+            <form action="#" method="post">
+                <label for="enterCode">참여코드</label>
+                <input id="enterCode" name="enterCode" type="text" placeholder="참여 코드를 입력하세요." required>
+                <input type="submit" value="입장">
+            </form>
+        </div>
+    </div>
+
+
+    <script>
+        function login() {
+            const result = confirm('로그인 후 사용가능합니다.\n로그인 하시겠습니까?');
+
+            if (result) {
+                location.href='/loginForm';
+            }
+        }
+
+        const createModal = document.querySelector('.create_modal');
+        const createOpenBtn = document.querySelector('.create-open-btn');
+        const createCloseBtn = document.querySelector('.create-close-btn');
+
+        const enterModal = document.querySelector('.enter_modal');
+        const enterOpenBtn = document.querySelector('.enter-open-btn');
+        const enterCloseBtn = document.querySelector('.enter-close-btn');
+
+        if (createOpenBtn != null) {
+            createOpenBtn.addEventListener('click', () => {
+                createModal.style.display = 'block';
+            });
+
+            createCloseBtn.addEventListener('click', () => {
+                createModal.style.display = 'none';
+            });
+        }
+
+        enterOpenBtn.addEventListener('click', () => {
+            enterModal.style.display = 'block';
+        });
+
+        enterCloseBtn.addEventListener('click', () => {
+            enterModal.style.display = 'none';
+        });
+    </script>
+</body>
+</html>
