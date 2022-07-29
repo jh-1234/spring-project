@@ -4,8 +4,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import project.demo.model.Channel;
+import project.demo.model.SaveUser;
 import project.demo.model.User;
 import project.demo.service.MainService;
 
@@ -30,18 +33,40 @@ public class MainController {
 
     @GetMapping("/join")
     public String join(Model model) {
-        model.addAttribute("user", new User());
+        model.addAttribute("user", new SaveUser());
         return "join";
     }
 
     @PostMapping("/join")
-    public String join(@ModelAttribute User member) {
-        service.join(member);
+    public String join(@Validated @ModelAttribute("user") SaveUser saveUser, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "join";
+        }
+
+        if (service.isUsername(saveUser.getUsername())) {
+            bindingResult.reject("overlap_username", "아이디가 중복되었습니다.");
+            return "join";
+        }
+
+        if (service.isNickname(saveUser.getNickname())) {
+            bindingResult.reject("overlap_nickname", "닉네임이 중복되었습니다.");
+            return "join";
+        }
+
+        User user = User.builder()
+                .username(saveUser.getUsername())
+                .password(saveUser.getPassword())
+                .nickname(saveUser.getNickname())
+                .build();
+
+        service.join(user);
         return "redirect:/";
     }
 
     @GetMapping("/loginForm")
-    public String loginForm() {
+    public String loginForm(@RequestParam(required = false) String error, @RequestParam(required = false) String exception, Model model) {
+        model.addAttribute("error", error);
+        model.addAttribute("exception", exception);
         return "login";
     }
 

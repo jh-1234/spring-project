@@ -6,4 +6,5 @@ import project.demo.model.User;
 public interface UserRepository extends JpaRepository<User, Integer> {
 
     public User findByUsername(String username);
+    public User findByNickname(String nickname);
 }

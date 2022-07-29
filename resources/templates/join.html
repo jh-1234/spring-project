@@ -20,17 +20,25 @@
         <div class="container">
             <div class="inner_container">
                 <form action="#" th:action="@{/join}" th:object="${user}" method="post">
+                    <div th:if="${#fields.hasGlobalErrors()}">
+                        <div th:each="err : ${#fields.globalErrors()}">
+                            <p style="color: red;" th:text="${err}">전체 오류 메시지</p>
+                        </div>
+                    </div>
                     <div>
                         <label for="username">아이디 </label>
                         <input id="username" th:field="*{username}" type="text" placeholder="아이디를 입력하세요." autocomplete="off" autofocus required>
+                        <small class="error" th:errors="*{username}"></small>
                     </div>
                     <div>
                         <label for="password">비밀번호 </label>
                         <input id="password" th:field="*{password}" type="password" placeholder="비밀번호를 입력하세요." autocomplete="off" required>
+                        <small class="error" th:errors="*{password}"></small>
                     </div>
                     <div>
                         <label for="nickname">닉네임 </label>
                         <input id="nickname" th:field="*{nickname}" type="text" placeholder="닉네임을 입력하세요." autocomplete="off" required>
+                        <small class="error" th:errors="*{nickname}"></small>
                     </div>
                     <button type="submit">가입하기</button>
                 </form>

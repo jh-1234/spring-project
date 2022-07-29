@@ -24,6 +24,18 @@ public class MainService {
         repository.save(member);
     }
 
+    public boolean isUsername(String username) {
+        User result = repository.findByUsername(username);
+
+        return result != null;
+    }
+
+    public boolean isNickname(String nickname) {
+        User result = repository.findByNickname(nickname);
+
+        return result != null;
+    }
+
     public String getNickname() {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 

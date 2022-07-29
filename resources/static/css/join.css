@@ -33,3 +33,8 @@ section {
     color: #fff;
     border-radius: 8px;
 }
+
+.error {
+    display: block;
+    color: red;
+}

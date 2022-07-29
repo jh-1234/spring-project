@@ -22,6 +22,6 @@ public class PrincipalDetailsService implements UserDetailsService {
             return new PrincipalDetails(member);
         }
 
-        return null;
+        throw new UsernameNotFoundException(username + " is not exist");
     }
 }
