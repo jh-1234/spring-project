@@ -30,8 +30,7 @@ public class ChannelController {
             return "redirect:/";
         }
 
-        int id = service.getId(code);
-        redirectAttributes.addAttribute("code", id);
+        redirectAttributes.addAttribute("code", code);
 
         return "redirect:/board";
     }

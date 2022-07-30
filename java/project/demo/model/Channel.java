@@ -18,4 +18,6 @@ public class Channel {
 
     private String password;
 
+    private String code;
+
 }

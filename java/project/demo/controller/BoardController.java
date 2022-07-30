@@ -7,15 +7,17 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import project.demo.model.Board;
 import project.demo.service.BoardService;
+import project.demo.service.ChannelService;
 
 @Controller
 @RequiredArgsConstructor
 public class BoardController {
 
-    private final BoardService service;
+    private final ChannelService channelService;
+    private final BoardService boardService;
 
     @GetMapping("/board")
-    public String board(@RequestParam int code, Model model) {
+    public String board(@RequestParam String code, Model model) {
         model.addAttribute("code", code);
         return "board";
     }
@@ -26,17 +28,18 @@ public class BoardController {
     }
 
     @GetMapping("/write")
-    public String write(@RequestParam int code, Model model) {
+    public String write(@RequestParam String code, Model model) {
         model.addAttribute("board", new Board());
         model.addAttribute("code", code);
         return "write";
     }
 
     @PostMapping("/write")
-    public String write(@ModelAttribute Board board, @RequestParam int code, RedirectAttributes redirectAttributes) {
-        board.setChannelId(code);
+    public String write(@ModelAttribute Board board, @RequestParam String code, RedirectAttributes redirectAttributes) {
+        int id = channelService.getId(code);
+        board.setChannelId(id);
         redirectAttributes.addAttribute("code", code);
-        service.write(board);
+        boardService.write(board);
 
         return "redirect:/board";
     }
