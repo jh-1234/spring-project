@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link href="/css/board.css" rel="stylesheet">
+    <link href="/css/nav.css" rel="stylesheet">
+</head>
+<body>
+    <nav th:replace="header :: nav"></nav>
+
+    <div class="board_wrap">
+        <div class="board_title">
+            <strong>공지사항</strong>
+            <p>공지사항을 빠르고 정확하게 안내해드립니다.</p>
+        </div>
+        <div class="board_list_wrap">
+            <div class="board_list">
+                <div class="top">
+                    <div class="num">번호</div>
+                    <div class="title">제목</div>
+                    <div class="writer">글쓴이</div>
+                    <div class="date">작성일</div>
+                    <div class="count">조회수</div>
+                </div>
+                <div>
+                    <div class="num">1</div>
+                    <div class="title"><a href="#" th:href="@{/view}">글 제목이 들어갑니다.</a></div>
+                    <div class="writer">글쓴이</div>
+                    <div class="date">2020. 20. 20 11:11:11</div>
+                    <div class="count">123</div>
+                </div>
+            </div>
+            <div class="board_page">
+                <a href="#" class="bt first">&lt;&lt;</a>
+                <a href="#" class="bt prev">&lt;</a>
+                <a href="#" class="num on">1</a>
+                <a href="#" class="num">2</a>
+                <a href="#" class="bt">&gt;</a>
+                <a href="#" class="bt">&gt;&gt;</a>
+            </div>
+            <div class="bt_wrap">
+                <button href="#" th:onclick="|location.href='@{|/write?code=${code}|}'|">글쓰기</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

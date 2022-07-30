@@ -25,15 +25,11 @@ public class MainService {
     }
 
     public boolean isUsername(String username) {
-        User result = repository.findByUsername(username);
-
-        return result != null;
+        return repository.findByUsername(username) != null;
     }
 
     public boolean isNickname(String nickname) {
-        User result = repository.findByNickname(nickname);
-
-        return result != null;
+        return repository.findByNickname(nickname) != null;
     }
 
     public String getNickname() {

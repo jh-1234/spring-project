@@ -20,4 +20,12 @@ public class ChannelService {
 
         repository.save(channel);
     }
+
+    public boolean isChannel(String channel) {
+        return repository.findByTitle(channel) == null;
+    }
+
+    public int getId(String channel) {
+        return repository.findByTitle(channel).getId();
+    }
 }

@@ -10,6 +10,10 @@
     <link href="/css/nav.css" rel="stylesheet">
 </head>
 <body>
+    <script th:inline="javascript" th:if="${error}">
+        alert([[${message}]]);
+    </script>
+
     <nav th:replace="header :: nav"></nav>
 
     <section style="text-align: center;">
@@ -35,7 +39,7 @@
                 <button type="button" class="create-close-btn">&times;</button>
             </div>
             <hr>
-            <form action="#" th:action="@{/createChannel}" th:object="${channel}" method="post">
+            <form action="#" th:action="@{/create}" th:object="${channel}" method="post">
                 <label for="title">제목</label>
                 <input id="title" th:field="*{title}" type="text" placeholder="채널 제목을 입력하세요." autocomplete="off" required><br><br>
                 <span style="font-weight: bold;">공개여부</span><br>
@@ -61,9 +65,9 @@
                 <button type="button" class="enter-close-btn">&times;</button>
             </div>
             <hr>
-            <form action="#" method="post">
-                <label for="enterCode">참여코드</label>
-                <input id="enterCode" name="enterCode" type="text" placeholder="참여 코드를 입력하세요." required>
+            <form action="#" th:action="@{/enter}" method="post">
+                <label for="code">참여코드</label>
+                <input id="code" name="code" type="text" placeholder="참여 코드를 입력하세요." required>
                 <input type="submit" value="입장">
             </form>
         </div>
