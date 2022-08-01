@@ -40,7 +40,8 @@ a {
     font-size: 0;
 }
 
-.bt_wrap input[type=submit] {
+.bt_wrap input[type=submit],
+.bt_wrap a {
     display: inline-block;
     min-width: 100px;
     margin-left: 10px;
@@ -51,11 +52,13 @@ a {
     background-color: #fff;
 }
 
-.bt_wrap input[type=submit]:first-child {
+.bt_wrap input[type=submit]:first-child,
+.bt_wrap a:first-child {
     margin-left: 0;
 }
 
-.bt_wrap input[type=submit].on {
+.bt_wrap input[type=submit].on,
+.bt_wrap a.on {
     background: #000;
     color: #fff;
 }

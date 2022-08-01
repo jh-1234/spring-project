@@ -28,7 +28,7 @@
                 </div>
                 <div th:each="board : ${boards}">
                     <div class="num" style="font-size: 5px;">●</div>
-                    <div class="title"><a href="#" th:href="@{/view}" th:text="${board.title}">글 제목이 들어갑니다.</a></div>
+                    <div class="title"><a href="#" th:href="@{|/view/${board.id}?code=${code}|}" th:text="${board.title}">글 제목이 들어갑니다.</a></div>
                     <div class="writer" th:text="${board.writer}">글쓴이</div>
                     <div class="date" th:text="${board.writeTime}">2020. 20. 20 11:11:11</div>
                     <div class="count" th:text="${board.count}">123</div>
@@ -43,7 +43,7 @@
                 <a href="#" class="bt">&gt;&gt;</a>
             </div>
             <div class="bt_wrap">
-                <button href="#" th:onclick="|location.href='@{|/write?code=${code}|}'|">글쓰기</button>
+                <a href="#" th:href="@{|/write?code=${code}|}">글쓰기</a>
             </div>
         </div>
     </div>

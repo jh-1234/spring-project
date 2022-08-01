@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface BoardRepository extends JpaRepository<Board, Integer> {
     public List<Board> findByChannelIdOrderByIdDesc(int id);
+    public Board findById(int id);
 }

@@ -22,5 +22,7 @@ public class Board {
     private Timestamp writeTime;
 
     private int count;
+    private String uploadFileName;
+    private String storeFileName;
     private int channelId;
 }
