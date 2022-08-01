@@ -7,20 +7,25 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import project.demo.model.Channel;
 import project.demo.model.SaveUser;
 import project.demo.model.User;
+import project.demo.service.ChannelService;
 import project.demo.service.MainService;
+
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
 public class MainController {
 
-    private final MainService service;
+    private final MainService mainService;
+    private final ChannelService channelService;
 
     @RequestMapping("/")
     public String index(Model model) {
-        String nickname = service.getNickname();
+        String nickname = mainService.getNickname();
 
         if (nickname != null) {
             model.addAttribute("nickname", nickname);
@@ -38,17 +43,17 @@ public class MainController {
     }
 
     @PostMapping("/join")
-    public String join(@Validated @ModelAttribute("user") SaveUser saveUser, BindingResult bindingResult) {
+    public String join(@Validated @ModelAttribute("user") SaveUser saveUser, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
             return "join";
         }
 
-        if (service.isUsername(saveUser.getUsername())) {
+        if (mainService.isUsername(saveUser.getUsername())) {
             bindingResult.reject("overlap_username", "아이디가 중복되었습니다.");
             return "join";
         }
 
-        if (service.isNickname(saveUser.getNickname())) {
+        if (mainService.isNickname(saveUser.getNickname())) {
             bindingResult.reject("overlap_nickname", "닉네임이 중복되었습니다.");
             return "join";
         }
@@ -59,7 +64,11 @@ public class MainController {
                 .nickname(saveUser.getNickname())
                 .build();
 
-        service.join(user);
+        mainService.join(user);
+
+        redirectAttributes.addFlashAttribute("status", true);
+        redirectAttributes.addFlashAttribute("message", "회원가입이 완료되었습니다.");
+
         return "redirect:/";
     }
 
@@ -73,7 +82,16 @@ public class MainController {
     @GetMapping("/user/info")
     @ResponseBody
     public String info() {
-        return "내정보 페이지입니다.";
+        List<Channel> channel = channelService.getChannel(mainService.getUserId());
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("내가 생성한 채널 목록<br>");
+
+        for (Channel c : channel) {
+            sb.append("채널명 : ").append(c.getTitle()).append(" >> ").append("채널코드 : ").append(c.getCode()).append("<br>");
+        }
+
+        return sb.toString();
     }
 
     @RequestMapping("/admin")

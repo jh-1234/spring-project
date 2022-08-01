@@ -10,7 +10,7 @@
     <link href="/css/nav.css" rel="stylesheet">
 </head>
 <body>
-    <script th:inline="javascript" th:if="${error}">
+    <script th:inline="javascript" th:if="${status}">
         alert([[${message}]]);
     </script>
 

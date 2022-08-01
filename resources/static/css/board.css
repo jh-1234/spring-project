@@ -99,6 +99,10 @@ a {
     text-align: left;
 }
 
+.board_list .title:hover {
+    text-decoration: underline;
+}
+
 .board_list .top .title {
     text-align: center;
 }

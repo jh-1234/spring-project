@@ -43,4 +43,16 @@ public class MainService {
 
         return null;
     }
+
+    public int getUserId() {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        if (!principal.toString().equals("anonymousUser")) {
+            PrincipalDetails user = (PrincipalDetails) principal;
+
+            return user.getUserId();
+        }
+
+        return -1;
+    }
 }

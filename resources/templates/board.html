@@ -20,18 +20,18 @@
         <div class="board_list_wrap">
             <div class="board_list">
                 <div class="top">
-                    <div class="num">번호</div>
+                    <div class="num"></div>
                     <div class="title">제목</div>
                     <div class="writer">글쓴이</div>
                     <div class="date">작성일</div>
                     <div class="count">조회수</div>
                 </div>
-                <div>
-                    <div class="num">1</div>
-                    <div class="title"><a href="#" th:href="@{/view}">글 제목이 들어갑니다.</a></div>
-                    <div class="writer">글쓴이</div>
-                    <div class="date">2020. 20. 20 11:11:11</div>
-                    <div class="count">123</div>
+                <div th:each="board : ${boards}">
+                    <div class="num" style="font-size: 5px;">●</div>
+                    <div class="title"><a href="#" th:href="@{/view}" th:text="${board.title}">글 제목이 들어갑니다.</a></div>
+                    <div class="writer" th:text="${board.writer}">글쓴이</div>
+                    <div class="date" th:text="${board.writeTime}">2020. 20. 20 11:11:11</div>
+                    <div class="count" th:text="${board.count}">123</div>
                 </div>
             </div>
             <div class="board_page">

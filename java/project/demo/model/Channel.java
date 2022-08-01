@@ -20,4 +20,6 @@ public class Channel {
 
     private String code;
 
+    private int userId;
+
 }

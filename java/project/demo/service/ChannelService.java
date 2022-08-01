@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import project.demo.model.Channel;
 import project.demo.repository.ChannelRepository;
 
+import java.util.List;
 import java.util.Random;
 
 @Service
@@ -23,6 +24,10 @@ public class ChannelService {
         channel.setCode(createCode());
 
         repository.save(channel);
+    }
+
+    public List<Channel> getChannel(int userId) {
+        return repository.findByUserId(userId);
     }
 
     public boolean isChannel(String code) {

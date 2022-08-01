@@ -3,10 +3,7 @@ package project.demo.model;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
@@ -22,7 +19,7 @@ public class Board {
     private String writer;
 
     @CreationTimestamp
-    private Timestamp write_time;
+    private Timestamp writeTime;
 
     private int count;
     private int channelId;
