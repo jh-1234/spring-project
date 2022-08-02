@@ -1,3 +1,7 @@
+body {
+    min-height: 150vh;
+}
+
 .container {
     background-color: #EAEAEA;
     display: inline-block;
@@ -127,4 +131,40 @@ input[id="private"]:checked ~ .password {
 #title, #password, #enterCode {
     width: 60%;
     height: 25px;
+}
+
+.search_box {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.search {
+    width: 600px;
+    height: 35px;
+    border-radius: 15px;
+    border: 1px solid #86E57F;
+    display: block;
+    margin: 0 auto;
+    padding-left: 15px;
+    outline: none;
+}
+
+.result_box {
+    border: 1px solid #000;
+    width: 800px;
+    height: 500px;
+    margin: 0 auto;
+    display: block;
+    text-align: center;
+    overflow: auto;
+}
+
+.result_box .result_inner .result_element {
+    font-size: 20px;
+    margin: 10px 0;
+    border-top: 1px solid #999;
+}
+
+.result_box .result_inner .result_element:first-child {
+    border-top: none;
 }

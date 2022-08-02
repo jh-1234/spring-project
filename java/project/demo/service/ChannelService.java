@@ -30,6 +30,14 @@ public class ChannelService {
         return repository.findByUserId(userId);
     }
 
+    public List<Channel> getAllChannels() {
+        return repository.findAll();
+    }
+
+    public List<Channel> getChannels(String title) {
+        return repository.findByTitleContains(title);
+    }
+
     public boolean isChannel(String code) {
         return repository.findByCode(code) == null;
     }

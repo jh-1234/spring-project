@@ -73,6 +73,20 @@
         </div>
     </div>
 
+    <div class="search_box">
+        <input class="search" type="text" placeholder="채널을 검색해보세요!" onkeyup="search(this.value)" autocomplete="off">
+    </div>
+
+    <div class="result_box">
+        <div id="list" class="result_inner">
+            <div th:each="c : ${channels}">
+                <div class="result_element">
+                    <p th:text="${c.title}"></p>
+                    <a>참여하기</a>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script>
         function login() {
@@ -108,6 +122,20 @@
         enterCloseBtn.addEventListener('click', () => {
             enterModal.style.display = 'none';
         });
+
+        function search(value) {
+            $.ajax({
+                type: "get",
+                url: "/search",
+                data: { "value" : value },
+                dataType: "text",
+                success: function (result) {
+                    document.getElementById("list").innerHTML = result;
+                }
+            });
+        }
     </script>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </body>
 </html>

@@ -26,12 +26,14 @@ public class MainController {
     @RequestMapping("/")
     public String index(Model model) {
         String nickname = mainService.getNickname();
+        List<Channel> channels = channelService.getAllChannels();
 
         if (nickname != null) {
             model.addAttribute("nickname", nickname);
         }
 
         model.addAttribute("channel", new Channel());
+        model.addAttribute("channels", channels);
 
         return "index";
     }
@@ -90,6 +92,23 @@ public class MainController {
         for (Channel c : channel) {
             sb.append("채널명 : ").append(c.getTitle()).append(" >> ").append("채널코드 : ").append(c.getCode()).append("<br>");
         }
+
+        return sb.toString();
+    }
+
+    @GetMapping("/search")
+    @ResponseBody
+    public String search(@RequestParam String value) {
+        List<Channel> list = channelService.getChannels(value);
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("<div class=\"result_element\">");
+
+        for (Channel c : list) {
+            sb.append("<p>").append(c.getTitle()).append("</p>");
+            sb.append("<a>").append("참여하기").append("</a>");
+        }
+        sb.append("</div>");
 
         return sb.toString();
     }
