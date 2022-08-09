@@ -34,7 +34,10 @@ public class ChannelController {
             return "redirect:/";
         }
 
-        redirectAttributes.addAttribute("code", code);
+        String secretCode = channelService.getSecretCode(code);
+
+        redirectAttributes.addAttribute("code", secretCode);
+        redirectAttributes.addAttribute("page", 0);
 
         return "redirect:/board";
     }

@@ -20,6 +20,8 @@ public class Channel {
 
     private String code;
 
+    private String secretCode;
+
     private Long userId;
 
 }

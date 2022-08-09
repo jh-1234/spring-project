@@ -28,7 +28,7 @@
                     </dl>
                     <dl>
                         <dt>작성일</dt>
-                        <dd th:text="${board.writeTime}"></dd>
+                        <dd th:text="${#temporals.format(board.writeTime, 'yyyy-MM-dd HH:mm:ss')}"></dd>
                     </dl>
                     <dl>
                         <dt>조회수</dt>
@@ -44,7 +44,7 @@
                 </div>
             </div>
             <div class="bt_wrap">
-                <a href="#" th:href="@{/board}" class="on">목록</a>
+                <a href="#" th:href="@{|/board?code=${code}&page=${page}|}" class="on">목록</a>
                 <a href="#" th:href="@{/modify}">수정</a>
             </div>
         </div>

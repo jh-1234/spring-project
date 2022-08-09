@@ -50,13 +50,14 @@ public class BoardController {
     }
 
     @GetMapping("/view/{id}")
-    public String view(@PathVariable Long id, @RequestParam String code, Model model) {
+    public String view(@PathVariable Long id, @RequestParam String code, @RequestParam int page, Model model) {
         String nickname = getNickname();
         Board board = boardService.getBoard(id);
 
         model.addAttribute("board", board);
         model.addAttribute("nickname", nickname);
         model.addAttribute("code", code);
+        model.addAttribute("page", page);
         return "view";
     }
 

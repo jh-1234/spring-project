@@ -28,7 +28,7 @@
                 </div>
                 <div th:each="board : ${boards}">
                     <div class="num" style="font-size: 5px;">●</div>
-                    <div class="title"><a href="#" th:href="@{|/view/${board.id}?code=${code}|}" th:text="${board.title}">제목</a></div>
+                    <div class="title"><a href="#" th:href="@{|/view/${board.id}?code=${code}&page=${page}|}" th:text="${board.title}">제목</a></div>
                     <div class="writer" th:text="${board.writer}">글쓴이</div>
                     <div class="date" th:text="${#temporals.format(board.writeTime, 'yyyy-MM-dd HH:mm:ss')}">작성일</div>
                     <div class="count" th:text="${board.count}">조회수</div>
@@ -36,16 +36,16 @@
             </div>
 
             <div class="board_page">
-                <a href="#" class="bt first">&lt;&lt;</a>
+                <a href="#" class="bt first" th:href="@{|/board?code=${code}&page=0|}">&lt;&lt;</a>
                 <a th:if="${#strings.equals(page, 0)}" href="#" class="bt prev" style="pointer-events: none;">&lt;</a>
                 <a th:unless="${#strings.equals(page, 0)}" href="#" class="bt prev" th:href="@{|/board?code=${code}&page=${page - 1}|}">&lt;</a>
                 <div th:each="p : ${#numbers.sequence(0, size)}" style="display: inline-block;">
                     <a th:if="${#strings.equals(p, page)}" href="#" th:href="@{|/board?code=${code}&page=${p}|}" class="num on" th:text="${p + 1}">1</a>
                     <a th:unless="${#strings.equals(p, page)}" href="#" th:href="@{|/board?code=${code}&page=${p}|}" class="num" th:text="${p + 1}">1</a>
                 </div>
-                <a th:if="${#strings.equals(page, 2)}" href="#" class="bt" style="pointer-events: none;">&gt;</a>
-                <a th:unless="${#strings.equals(page, 2)}" href="#" class="bt" th:href="@{|/board?code=${code}&page=${page + 1}|}">&gt;</a>
-                <a href="#" class="bt">&gt;&gt;</a>
+                <a th:if="${#strings.equals(page, size)}" href="#" class="bt" style="pointer-events: none;">&gt;</a>
+                <a th:unless="${#strings.equals(page, size)}" href="#" class="bt" th:href="@{|/board?code=${code}&page=${page + 1}|}">&gt;</a>
+                <a href="#" class="bt" th:href="@{|/board?code=${code}&page=${size}|}">&gt;&gt;</a>
             </div>
             <div class="bt_wrap">
                 <a href="#" th:href="@{|/write?code=${code}&page=${page}|}">글쓰기</a>

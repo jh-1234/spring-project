@@ -1,6 +1,7 @@
 package project.demo.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import project.demo.model.Channel;
 import project.demo.repository.ChannelRepository;
@@ -13,6 +14,7 @@ import java.util.Random;
 public class ChannelService {
 
     private final ChannelRepository repository;
+    private final BCryptPasswordEncoder passwordEncoder;
 
     public void save(Channel channel) {
         String whether = channel.getWhether();
@@ -21,7 +23,11 @@ public class ChannelService {
             channel.setPassword(null);
         }
 
-        channel.setCode(createCode());
+        String code = createCode();
+        String secretCode = passwordEncoder.encode(code);
+
+        channel.setCode(code);
+        channel.setSecretCode(secretCode);
 
         repository.save(channel);
     }
@@ -42,8 +48,12 @@ public class ChannelService {
         return repository.findByCode(code) == null;
     }
 
+    public String getSecretCode(String code) {
+        return repository.getSecretCode(code);
+    }
+
     public Long getId(String code) {
-        return repository.findByCode(code).getId();
+        return repository.findBySecretCode(code).getId();
     }
 
     public String createCode() {
