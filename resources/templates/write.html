@@ -19,7 +19,7 @@
         </div>
         <div class="board_write_wrap">
             <div class="board_write">
-                <form action="#" th:action="@{|/write?code=${code}|}" th:object="${board}" method="post" enctype="multipart/form-data">
+                <form action="#" th:action="@{|/write?code=${code}&page=${page}|}" th:object="${board}" method="post" enctype="multipart/form-data">
                     <div class="title">
                         <dl>
                             <dt>제목</dt>

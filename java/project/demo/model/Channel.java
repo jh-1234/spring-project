@@ -10,7 +10,7 @@ public class Channel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
     private String title;
 
@@ -20,6 +20,6 @@ public class Channel {
 
     private String code;
 
-    private int userId;
+    private Long userId;
 
 }

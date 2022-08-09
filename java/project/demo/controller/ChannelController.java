@@ -19,7 +19,7 @@ public class ChannelController {
 
     @PostMapping("/create")
     public String create(@ModelAttribute Channel channel) {
-        int userId = mainService.getUserId();
+        Long userId = mainService.getUserId();
         channel.setUserId(userId);
         channelService.save(channel);
 

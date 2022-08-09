@@ -2,6 +2,7 @@ package project.demo.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import project.demo.model.Board;
@@ -21,11 +22,11 @@ public class BoardService {
 
     private final BoardRepository repository;
 
-    public List<Board> getBoards(int id) {
-        return repository.findByChannelIdOrderByIdDesc(id);
+    public List<Board> getBoards(Long id, Pageable pageable) {
+        return repository.findByChannelIdOrderByIdDesc(id, pageable);
     }
 
-    public Board getBoard(int id) {
+    public Board getBoard(Long id) {
         return repository.findById(id);
     }
 
@@ -46,6 +47,10 @@ public class BoardService {
         String ext = fileName.substring(pos);
 
         return UUID.randomUUID().toString() + ext;
+    }
+
+    public Long getBoardSize(Long id) {
+        return repository.getBoardSize(id);
     }
 
     public String getFullPath(String filename) {

@@ -26,7 +26,7 @@ public class ChannelService {
         repository.save(channel);
     }
 
-    public List<Channel> getChannel(int userId) {
+    public List<Channel> getChannel(Long userId) {
         return repository.findByUserId(userId);
     }
 
@@ -42,7 +42,7 @@ public class ChannelService {
         return repository.findByCode(code) == null;
     }
 
-    public int getId(String code) {
+    public Long getId(String code) {
         return repository.findByCode(code).getId();
     }
 

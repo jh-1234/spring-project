@@ -3,6 +3,9 @@ package project.demo.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -28,22 +31,26 @@ public class BoardController {
     private final MainService mainService;
     private final ChannelService channelService;
     private final BoardService boardService;
-
+    private static final int PAGE_SIZE = 10;
 
     @GetMapping("/board")
-    public String board(@RequestParam String code, Model model) {
+    public String board(@RequestParam String code, @RequestParam int page, Model model, @PageableDefault(sort = "id", size = PAGE_SIZE, direction = Sort.Direction.DESC) Pageable pageable) {
         String nickname = getNickname();
-        int id = channelService.getId(code);
-        List<Board> boards = boardService.getBoards(id);
+        Long id = channelService.getId(code);
+        List<Board> boards = boardService.getBoards(id, pageable);
+        Long boardSize = boardService.getBoardSize(id);
+        Long size =  boardSize % PAGE_SIZE == 0 ? boardSize / PAGE_SIZE - 1 : boardSize / PAGE_SIZE;
 
         model.addAttribute("code", code);
         model.addAttribute("nickname", nickname);
         model.addAttribute("boards", boards);
+        model.addAttribute("size", size);
+        model.addAttribute("page", page);
         return "board";
     }
 
     @GetMapping("/view/{id}")
-    public String view(@PathVariable int id, @RequestParam String code, Model model) {
+    public String view(@PathVariable Long id, @RequestParam String code, Model model) {
         String nickname = getNickname();
         Board board = boardService.getBoard(id);
 
@@ -54,19 +61,21 @@ public class BoardController {
     }
 
     @GetMapping("/write")
-    public String write(@RequestParam String code, Model model) {
+    public String write(@RequestParam String code, @RequestParam int page, Model model) {
         String nickname = getNickname();
         model.addAttribute("board", new Board());
         model.addAttribute("code", code);
         model.addAttribute("nickname", nickname);
+        model.addAttribute("page", page);
         return "write";
     }
 
     @PostMapping("/write")
-    public String write(@ModelAttribute Board board, @RequestParam String code, @RequestParam MultipartFile file, RedirectAttributes redirectAttributes) throws IOException {
-        int id = channelService.getId(code);
+    public String write(@ModelAttribute Board board, @RequestParam String code, @RequestParam int page, @RequestParam MultipartFile file, RedirectAttributes redirectAttributes) throws IOException {
+        Long id = channelService.getId(code);
         board.setChannelId(id);
         redirectAttributes.addAttribute("code", code);
+        redirectAttributes.addAttribute("page", page);
 
         if (!file.isEmpty()) {
             boardService.fileSave(file, board);
@@ -84,7 +93,7 @@ public class BoardController {
     }
 
     @GetMapping("/download/{id}")
-    public ResponseEntity<Resource> download(@PathVariable int id) throws MalformedURLException {
+    public ResponseEntity<Resource> download(@PathVariable Long id) throws MalformedURLException {
         Board board = boardService.getBoard(id);
         String storeFileName = board.getStoreFileName();
         String uploadFileName = board.getUploadFileName();

@@ -44,7 +44,7 @@ public class MainService {
         return null;
     }
 
-    public int getUserId() {
+    public Long getUserId() {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
         if (!principal.toString().equals("anonymousUser")) {
@@ -53,6 +53,6 @@ public class MainService {
             return user.getUserId();
         }
 
-        return -1;
+        return null;
     }
 }
